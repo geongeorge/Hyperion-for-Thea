@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
     data:()=>({
         apiUrl:""
@@ -32,5 +33,4 @@ export default {
 </script>
 
 <style>
-
 </style>

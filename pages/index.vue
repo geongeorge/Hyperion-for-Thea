@@ -122,6 +122,7 @@ export default {
 </script>
 
 <style>
+
 .top-title {
    margin-top: 2em;
 }

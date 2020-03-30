@@ -13,7 +13,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel:'stylesheet', href: 'https://unpkg.com/element-ui/lib/theme-chalk/index.css'}
+      { rel:'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/theme-chalk/index.css'}
     ]
   },
   /*
@@ -24,19 +24,21 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css',
-    '@/assets/css/main.css'
+    '@/assets/css/main.css',
+    // '@/assets/css/elem-fix.scss',
+    // '@/assets/css/index.css',
+    // 'element-ui/lib/theme-chalk/index.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui',
     { src: '~/plugins/vuex-persist', ssr: false },
     '@/plugins/api',
     '@/plugins/vue-element-loading',
     '@/plugins/vue-zoomer',
-    '~/plugins/bus'
+    '~/plugins/bus',
+    { src: '@/plugins/element-ui', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,6 +63,8 @@ export default {
   ** Build configuration
   */
   build: {
+    extractCSS: true,
+    cssSourceMap:true,
     transpile: [/^element-ui/],
     /*
     ** You can extend webpack config here
