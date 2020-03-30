@@ -98,6 +98,8 @@ export default {
    },
    selectName(val) {
      console.log(val)
+     this.$bus.$emit("selectedNew");
+    //  this.$bus.$on('selectedNew', () => {})
      this.$store.commit("setSelectedFileName",val)
    }
  },

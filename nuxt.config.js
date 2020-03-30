@@ -35,7 +35,8 @@ export default {
     { src: '~/plugins/vuex-persist', ssr: false },
     '@/plugins/api',
     '@/plugins/vue-element-loading',
-    '@/plugins/vue-zoomer'
+    '@/plugins/vue-zoomer',
+    '~/plugins/bus'
   ],
   /*
   ** Nuxt.js dev-modules

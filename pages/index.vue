@@ -24,7 +24,7 @@
       </el-row>
     </div>
     <div v-else>
-        <el-button type="text" @click="responseData=null">Back</el-button>
+        <el-button type="text" @click="responseData=null"><i class="el-icon-back"></i> Back</el-button>
         <div>
           <canvasBox :src="responseData"></canvasBox>
         </div>
@@ -108,6 +108,10 @@ export default {
       return ""
       
     }
+  },mounted(){
+    this.$bus.$on('selectedNew',()=>{
+      this.responseData = null
+    })
   }
 }
 </script>
