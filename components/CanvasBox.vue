@@ -131,11 +131,17 @@ export default {
             });
         },
         submitData() {
-            // pass 3 things
-            // countours [selected only]
-            // tmp image name
-            // selected image name
-            let data="e"
+            // pass 4 things
+                // selected folder name - selected
+                // selected image name
+                // tmp image name
+                // countours [selected only]
+            let data= {
+                selected: this.$store.state.selected,
+                selectedName: this.$store.state.selectedName,
+                tmpImage: this.src.image,
+                countours: this.countours.filter(el=> el.selected)
+            }
             console.log(data)
         }
     },
@@ -158,6 +164,9 @@ export default {
             
        await this.loadImage(this.imageUrl)
        await this.resized()
+
+        // Listen for resize event
+       window.addEventListener('resize',this.resized)
     },
 }
 </script>
