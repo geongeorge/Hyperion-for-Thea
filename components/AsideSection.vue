@@ -106,6 +106,11 @@ export default {
  mounted() {
    console.log(this.$store.state)
     this.setValue()
+
+    // this.$bus.$emit("savedOne");
+    this.$bus.$on('savedOne',()=>{
+      this.optionChanged() 
+    })
  },
  computed: {
    selectedVal() {

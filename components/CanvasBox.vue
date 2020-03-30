@@ -39,7 +39,7 @@
                     <div class="inner-canv text-white"
                     v-if="!resizing"
                     >
-                        <div v-for="(val,key) in countours" :key="key"
+                        <div v-for="(val,key) in contours" :key="key"
                         class="canv-box hover:border-green-500 hover:bg-green-500"
                         :style="styleObj(val)"
                         :class="[val.selected? 'selected':'deselected' ]"
@@ -50,6 +50,9 @@
                 </div>
             </el-col>
       </el-row>
+      <div>
+          {{selectedcontours.length}} / {{contours.length}} selections made
+      </div>
   </div>
 </template>
 
@@ -65,7 +68,7 @@ export default {
     data:()=>({
         widthCol:12,
         resizing: false,
-        countours: [],
+        contours: [],
         img: null,
         widthRatio: 1,
         heightRatio: 1,
@@ -107,11 +110,11 @@ export default {
         },
         selectX(x){
             if(x==1){
-                this.countours.forEach((el)=>{
+                this.contours.forEach((el)=>{
                     el.selected=true
                 })
             }else if(x==0){
-                this.countours.forEach((el)=>{
+                this.contours.forEach((el)=>{
                     el.selected=false
                 })
             }
@@ -122,9 +125,8 @@ export default {
         },
         confirmSubmit() {
             this.$confirm('This will save the dataset according to the selections made. Are you sure?', 'Warning', {
-                confirmButtonText: 'OK',
+                confirmButtonText: 'Save',
                 cancelButtonText: 'Cancel',
-                type: 'warning'
             }).then(() => {
                 this.submitData()
             }).catch(() => {        
@@ -135,14 +137,31 @@ export default {
                 // selected folder name - selected
                 // selected image name
                 // tmp image name
-                // countours [selected only]
+                // contours [selected only]
             let data= {
                 selected: this.$store.state.selected,
                 selectedName: this.$store.state.selectedName,
                 tmpImage: this.src.image,
-                countours: this.countours.filter(el=> el.selected)
+                contours: this.selectedcontours
             }
-            console.log(data)
+
+            let apiUrl = this.getUrl('save')
+
+            console.log("sending",data)
+
+            this.$axios.post(apiUrl,data)
+            .then((response)=>{
+                this.$message({
+                    message: 'Saved!',
+                    type: 'Success! Select a new image from the sidebar!'
+                });
+                this.$bus.$emit("savedOne");
+            })
+            .catch((error) => {
+                this.$message.error('Oops, there was an error');
+                console.log(error)
+            })
+            // console.log(data)
         }
     },
     computed: {
@@ -150,10 +169,13 @@ export default {
             if(!this.src.image) return ""
             return this.getUrl('temp/'+this.src.image)
         },
+        selectedcontours() {
+            return this.contours.filter(el=> el.selected)
+        }
     },
     async mounted() {
-        this.src.countours.forEach(element => {
-            this.countours.push({
+        this.src.contours.forEach(element => {
+            this.contours.push({
                 l: element[0],
                 t: element[1],
                 w: element[2],

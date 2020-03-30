@@ -109,7 +109,12 @@ export default {
       
     }
   },mounted(){
+    //After changing a selection
     this.$bus.$on('selectedNew',()=>{
+      this.responseData = null
+    })
+    //After saving one
+    this.$bus.$on('savedOne',()=>{
       this.responseData = null
     })
   }
