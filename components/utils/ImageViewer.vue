@@ -27,8 +27,10 @@
 </template>
 
 <script>
+
 export default {
     components:{
+
     },
     props: {
         imageUrl: {required: true},

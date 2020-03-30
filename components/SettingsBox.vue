@@ -2,7 +2,7 @@
   <div class="border shadow my-3 p-2 rounded" v-if="editable">
     <vue-element-loading :active="!editable" spinner="spinner" color="#409EFF"/>
     <el-row :gutter="20">
-      <el-col :span="12">
+      <el-col :span="14">
         <div class="block">
           <span class="demonstration">Threshold Value</span>
           <el-slider v-model="threshold" show-input :min="0" :max="255"
@@ -10,7 +10,7 @@
           ></el-slider>
         </div>
       </el-col>
-      <el-col :span="12" class>
+      <el-col :span="6" class>
         <div>Character sizes:</div>
         <div class="text-gray-500 text-xs">
           Min Width:
@@ -20,7 +20,7 @@
             label="Minimum Width"
             v-model="minWidth"
             @change="changedVal"
-          ></el-input-number>&nbsp; Min Height:
+          ></el-input-number><br> Min Height:
           <el-input-number
             controls-position="right"
             size="small"
@@ -29,6 +29,12 @@
             @change="changedVal"
           ></el-input-number>
         </div>
+      </el-col>
+      <el-col :span="4" class="py-6 text-center">
+        <el-button @click="$emit('save')" type="success" class="w-full px-2" size="large">
+          Save and go
+          <i class="el-icon-arrow-right el-icon-right"></i>
+        </el-button>
       </el-col>
     </el-row>
   </div>
